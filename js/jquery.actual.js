@@ -12,7 +12,7 @@
             };
 
             if (ignoreHeight) {
-                styles.height = 'auto';
+                styles['height'] = 'auto';
                 styles['min-height'] = 'none';
                 styles['max-height'] = 'none';
             }

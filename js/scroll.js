@@ -5,8 +5,8 @@ $.fn.scroll = function(options) {
     /*** Настройки ***/
     var _settings = $.extend({
         height: $that.actual('innerHeight'),
-        minHeight: +$that.css('min-height').slice(0, -2),
-        maxHeight: +$that.css('max-height').slice(0, -2),
+        minHeight: +$that.css('min-height').slice(0, -2) || 0,
+        maxHeight: +$that.css('max-height').slice(0, -2) || 500,
         adaptiveHeight: false,
         toggleHeight: null,
         minToggleHeight: 30,
@@ -193,7 +193,7 @@ $.fn.scroll = function(options) {
 
     // Проскроллить на delta пикселей
     var _doScroll = function(delta, duration) {
-        if (_maxScroll === 0 || _animated) return;
+        if (_animated) return;
 
         duration = duration || 0;
         delta = _settings.orientation === 'bottom' ? -delta : delta;
@@ -212,11 +212,13 @@ $.fn.scroll = function(options) {
                 _animated = true;
             },
             step: function(now) {
-                _scroll = -now;
+                if (-now !== _scroll) {
+                    _scroll = -now;
 
-                // Вызов callback функции
-                if (typeof _settings.scrollHandler === 'function') {
-                    _settings.scrollHandler(_getScroll());
+                    // Вызов callback функции
+                    if (typeof _settings.scrollHandler === 'function') {
+                        _settings.scrollHandler(_getScroll());
+                    }
                 }
             },
             complete: function() {
@@ -513,7 +515,6 @@ $.fn.scroll = function(options) {
 
         _dom.inner.html($html);
         _update();
-        _doScroll(0);
 
         return $html;
     };
