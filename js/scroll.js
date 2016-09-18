@@ -75,6 +75,11 @@ $.fn.scroll = function(options) {
 
         // Обновляем разметку
         $that.html(_dom.wrap);
+
+        // Проверяем, что высота до вставки была определена верно
+        if (ch === _dom.inner.actual('innerHeight')) {
+            _update();
+        }
     };
 
     // Сформировать обертку
