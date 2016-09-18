@@ -183,7 +183,7 @@ $.fn.scroll = function(options) {
             e = e.originalEvent;
             e.preventDefault();
 
-            delta = (e.touches[0].pageY - pageY) * k;
+            delta = (pageY - e.touches[0].pageY) * k;
             pageY = e.touches[0].pageY;
 
             _doScroll(delta * _settings.wheelSpeed);
