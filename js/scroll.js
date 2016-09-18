@@ -198,7 +198,7 @@ $.fn.scroll = function(options) {
 
     // Проскроллить на delta пикселей
     var _doScroll = function(delta, duration) {
-        if (_animated) return;
+        if (_animated || _centerModeFlag) return;
 
         duration = duration || 0;
         delta = _settings.orientation === 'bottom' ? -delta : delta;
@@ -435,7 +435,7 @@ $.fn.scroll = function(options) {
 
     /*** API ***/
 
-        // Обновить
+    // Обновить
     self.update = _update;
 
     // Разрушить
