@@ -545,15 +545,17 @@ $.fn.scroll = function(options) {
     };
 
     // Вставить содержимое перед элементом
-    self.addBefore = function(html, elem) {
+    self.addBefore = function(html, elem, ignoreOrientation) {
         var $html = $(html),
             $elem = _dom.inner.find(elem),
             orientation;
 
         if (!$elem.length) return;
 
-        orientation = _getElemOrientation($elem);
-        orientation = orientation === 'in' ? 'top' : orientation;
+        if (!ignoreOrientation) {
+            orientation = _getElemOrientation($elem);
+            orientation = orientation === 'in' ? 'top' : orientation;
+        }
 
         $elem.before($html);
         _update(orientation);
@@ -562,15 +564,17 @@ $.fn.scroll = function(options) {
     };
 
     // Вставить содержимое после элемента
-    self.addAfter = function(html, elem) {
+    self.addAfter = function(html, elem, ignoreOrientation) {
         var $html = $(html),
             $elem = _dom.inner.find(elem),
             orientation;
 
         if (!$elem.length) return;
 
-        orientation = _getElemOrientation($elem);
-        orientation = orientation === 'in' ? 'bottom' : orientation;
+        if (!ignoreOrientation) {
+            orientation = _getElemOrientation($elem);
+            orientation = orientation === 'in' ? 'bottom' : orientation;
+        }
 
         $elem.after($html);
         _update(orientation);
