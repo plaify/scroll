@@ -420,9 +420,9 @@ $.fn.scroll = function(options) {
     var _getPadding = function($elem) {
         var padding = [
             $elem.css('padding-top'),
-            $elem.css('padding-left'),
+            $elem.css('padding-right'),
             $elem.css('padding-bottom'),
-            $elem.css('padding-right')
+            $elem.css('padding-top')
         ];
 
         return padding.join(' ');
