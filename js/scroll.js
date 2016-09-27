@@ -35,7 +35,7 @@ $.fn.scroll = function(options) {
 
     // Инициализация
     var _init = function() {
-        var ch = $that.actual('innerHeight', true);
+        var ch = $that.actual('innerHeight', undefined, true);
 
         // Формируем обертку
         _createWrap();
@@ -75,11 +75,6 @@ $.fn.scroll = function(options) {
 
         // Обновляем разметку
         $that.html(_dom.wrap);
-
-        // Проверяем, что высота до вставки была определена верно
-        if (ch === _dom.inner.actual('innerHeight')) {
-            _update();
-        }
     };
 
     // Сформировать обертку
@@ -108,7 +103,7 @@ $.fn.scroll = function(options) {
 
     // Установить высоту бегунка в зависимости от высоты содержимого
     var _setToggleHeight = function(ch) {
-        var sbh = _getScrollbarHeight();
+        var sbh = _dom.scrollbar.actual('height');
 
         if (_maxScroll === 0) {
             _dom.toggle.height(0);
@@ -145,7 +140,7 @@ $.fn.scroll = function(options) {
 
         var pageY = e.pageY,
             $window = $(window),
-            k = (_dom.inner.innerHeight() - _settings.height) / (_getScrollbarHeight() - _dom.toggle.height()),
+            k = (_dom.inner.innerHeight() - _settings.height) / (_dom.scrollbar.actual('height') - _dom.toggle.actual('height')),
             delta;
 
         clearTimeout(_wheelTimeout);
@@ -174,7 +169,7 @@ $.fn.scroll = function(options) {
 
         var pageY = e.touches[0].pageY,
             $window = $(window),
-            k = (_dom.inner.innerHeight() - _settings.height) / (_getScrollbarHeight() - _dom.toggle.height()),
+            k = (_dom.inner.innerHeight() - _settings.height) / (_dom.scrollbar.actual('height') - _dom.toggle.actual('height')),
             delta;
 
         _dom.scrollbar.addClass('active');
@@ -208,7 +203,7 @@ $.fn.scroll = function(options) {
             propsToggle = {};
 
         propsInner[_settings.orientation] = -val;
-        propsToggle[_settings.orientation] = (val / _maxScroll) * (_getScrollbarHeight() - _dom.toggle.actual('height'));
+        propsToggle[_settings.orientation] = (val / _maxScroll) * (_dom.scrollbar.actual('height') - _dom.toggle.actual('height'));
 
         _dom.toggle.animate(propsToggle, duration);
         _dom.inner.animate(propsInner, {
@@ -316,7 +311,7 @@ $.fn.scroll = function(options) {
     // Получить информацию об элемента
     var _getElemInfo = function($elem) {
         var pos = $elem.position(),
-            height = $elem.outerHeight(true);
+            height = $elem.actual('outerHeight', true);
 
         return {
             top: pos.top,
@@ -360,12 +355,6 @@ $.fn.scroll = function(options) {
         }
 
         return result;
-    };
-
-    // Получить высоту скроллбара
-    var _getScrollbarHeight = function() {
-        // 8 - это отступы top и bottom по 4px
-        return _settings.height - 8;
     };
 
     ////////////////// Центрирование ///////////////////////
