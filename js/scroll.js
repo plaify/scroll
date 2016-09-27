@@ -140,7 +140,7 @@ $.fn.scroll = function(options) {
 
         var pageY = e.pageY,
             $window = $(window),
-            k = (_dom.inner.innerHeight() - _settings.height) / (_dom.scrollbar.actual('height') - _dom.toggle.actual('height')),
+            k = (_dom.inner.actual('innerHeight') - _settings.height) / (_dom.scrollbar.actual('height') - _dom.toggle.actual('height')),
             delta;
 
         clearTimeout(_wheelTimeout);
@@ -169,7 +169,7 @@ $.fn.scroll = function(options) {
 
         var pageY = e.touches[0].pageY,
             $window = $(window),
-            k = (_dom.inner.innerHeight() - _settings.height) / (_dom.scrollbar.actual('height') - _dom.toggle.actual('height')),
+            k = (_dom.inner.actual('innerHeight') - _settings.height) / (_dom.scrollbar.actual('height') - _dom.toggle.actual('height')),
             delta;
 
         _dom.scrollbar.addClass('active');
