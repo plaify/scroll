@@ -51,9 +51,6 @@ $.fn.scroll = function(options) {
         // Устанавливаем высоту обертки и самого блока
         _setHeight(_settings.height);
 
-        // Устанавливаем высоту бегунка
-        _setToggleHeight(ch);
-
         // Переносим паддинги
         _dom.inner.css('padding', _getPadding($that));
         $that.css('padding', 0);
@@ -75,6 +72,9 @@ $.fn.scroll = function(options) {
 
         // Обновляем разметку
         $that.html(_dom.wrap);
+
+        // Устанавливаем высоту бегунка
+        _setToggleHeight(ch);
     };
 
     // Сформировать обертку
